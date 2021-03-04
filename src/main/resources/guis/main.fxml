@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chessfigureproductor.controllers.MainController">
+   <children>
+      <ChoiceBox fx:id="figureChooser" layoutX="92.0" layoutY="14.0" prefHeight="30.0" prefWidth="145.0" />
+      <Spinner fx:id="sizeChooser" layoutX="255.0" layoutY="15.0" prefHeight="28.0" prefWidth="81.0" />
+      <CheckBox fx:id="exportCheck" layoutX="93.0" layoutY="55.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="242.0" text="Export to .csv" />
+      <TextField fx:id="pathField" editable="false" layoutX="14.0" layoutY="88.0" prefHeight="28.0" prefWidth="183.0" />
+      <Button fx:id="folderChooser" layoutX="221.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#setFolderChooser" prefHeight="27.0" prefWidth="113.0" text="Folder Chooser" />
+      <TableView fx:id="stepTable" layoutX="14.0" layoutY="135.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="205.0" prefWidth="321.0">
+        <columns>
+          <TableColumn fx:id="ruleColumn" editable="false" prefWidth="73.76522922515869" text="Rule №" />
+          <TableColumn fx:id="currentColumn" editable="false" prefWidth="125.39996337890625" text="Current" />
+            <TableColumn fx:id="destColumn" editable="false" prefWidth="123.365234375" text="Destination" />
+        </columns>
+      </TableView>
+      <Button fx:id="startCalculating" layoutX="88.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#startCalculating" prefHeight="28.0" prefWidth="173.0" text="Start Calculating" />
+      <ImageView fx:id="pictureField" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
