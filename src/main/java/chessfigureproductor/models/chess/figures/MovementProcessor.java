@@ -1,4 +1,4 @@
-package chessfigureproductor.models.chess;
+package chessfigureproductor.models.chess.figures;
 
 import chessfigureproductor.models.table.FigureStepData;
 import chessfigureproductor.models.utils.csv.CSVManager;
@@ -65,10 +65,6 @@ public class MovementProcessor implements CSVManager {
 
     public List<FigureStepData> getGeneratedRules() {
         return generatedRules;
-    }
-
-    public void setGeneratedRules(List<FigureStepData> generatedRules) {
-        this.generatedRules = generatedRules;
     }
 
 }

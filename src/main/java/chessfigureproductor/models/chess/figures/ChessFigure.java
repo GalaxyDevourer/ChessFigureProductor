@@ -1,4 +1,4 @@
-package chessfigureproductor.models.chess;
+package chessfigureproductor.models.chess.figures;
 
 import javafx.util.Pair;
 

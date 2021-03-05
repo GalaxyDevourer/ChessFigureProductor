@@ -1,6 +1,6 @@
-package chessfigureproductor.models.chess.ChessRealization;
+package chessfigureproductor.models.chess.figures.realization;
 
-import chessfigureproductor.models.chess.ChessFigure;
+import chessfigureproductor.models.chess.figures.ChessFigure;
 import javafx.util.Pair;
 
 public class RookFigure implements ChessFigure {

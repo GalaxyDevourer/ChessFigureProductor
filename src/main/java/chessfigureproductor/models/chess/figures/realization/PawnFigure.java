@@ -1,9 +1,9 @@
-package chessfigureproductor.models.chess.ChessRealization;
+package chessfigureproductor.models.chess.figures.realization;
 
-import chessfigureproductor.models.chess.ChessFigure;
+import chessfigureproductor.models.chess.figures.ChessFigure;
 import javafx.util.Pair;
 
-public class QueenFigure implements ChessFigure {
+public class PawnFigure implements ChessFigure {
     @Override
     public boolean matchRule(Pair<Integer, Integer> axisX, Pair<Integer, Integer> axisY) {
         double xIndex = Math.abs(axisX.getKey() - axisX.getValue());
@@ -13,16 +13,16 @@ public class QueenFigure implements ChessFigure {
     }
 
     private boolean ruleMather (double xIndex, double yIndex) {
-        return ((xIndex >= 1 && yIndex >= 1) && (xIndex/yIndex == 1)) || ((xIndex == 0 && yIndex >= 1) || (xIndex >= 1 && yIndex == 0));
+        return (xIndex == 1 && yIndex == 0);
     }
 
     @Override
     public String getPictureName() {
-        return "queen";
+        return "pawn";
     }
 
     @Override
     public String toString() {
-        return "The Queen";
+        return "The Pawn";
     }
 }
