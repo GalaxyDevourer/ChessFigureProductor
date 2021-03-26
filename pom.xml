@@ -6,7 +6,7 @@
 
     <groupId>chmnu.labs.com</groupId>
     <artifactId>ChessFigureProductor</artifactId>
-    <version>1.3_Final</version>
+    <version>1.4.1_Final_Reworked</version>
     <packaging>jar</packaging>
 
     <properties>

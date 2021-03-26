@@ -2,34 +2,38 @@ package chessfigureproductor.models.chess.strategies;
 
 import chessfigureproductor.models.table.FigureStepData;
 import chessfigureproductor.models.table.RoutingStepData;
+import chessfigureproductor.models.utils.window.WindowsUtils;
 
 import java.util.*;
 
-public class RoutingProcessor {
+public class RoutingProcessor implements WindowsUtils {
     private Strategy strategy;
     private Integer initStep;
+    private Integer endStep;
     private Boolean reverseMode;
     private List<FigureStepData> figureData;
 
     private List<RoutingStepData> routingData;
 
-    public RoutingProcessor(Strategy strategy, List<FigureStepData> figureData, Integer initStep, Boolean reverseMode) {
-        this.strategy = strategy;
+    public RoutingProcessor(List<FigureStepData> figureData, Integer initStep, Integer endStep, Boolean reverseMode) {
         this.initStep = initStep;
+        this.endStep = endStep;
         this.reverseMode = reverseMode;
         this.figureData = figureData;
     }
 
-    public void start () {
+    public void start (Strategy strategy) {
+        this.strategy = strategy;
+
         HashMap<Integer, List<Integer>> figureMap = figureMapper();
-        List<Integer> routing = mapProcessor(figureMap, initStep);
+        List<Integer> routing = mapProcessor(figureMap, initStep, endStep);
 
         if (reverseMode) Collections.reverse(routing);
         routingData = routingMapper(routing);
     }
 
     // get final routing values
-    private List<Integer> mapProcessor (HashMap<Integer, List<Integer>> map, Integer initStep) {
+    private List<Integer> mapProcessor (HashMap<Integer, List<Integer>> map, Integer initStep, Integer endStep) {
         List<Integer> routing = new ArrayList<>();
         routing.add(initStep);
         int iterations = map.size() - 1;
@@ -49,9 +53,17 @@ public class RoutingProcessor {
 
             chosenStep = chosenNextStep(chosenRules(rulesMap));
             System.out.println("chosen step = " + chosenStep);
-            routing.add(chosenStep);
+
+            if (reverseMode && chosenStep == endStep) {
+                routing.add(chosenStep);
+                break;
+            }
+            else routing.add(chosenStep);
             System.out.println("routing = " + routing);
         }
+
+        if (reverseMode && !routing.contains(endStep)) dialogWarningMessage("Warning with " + strategy.toString() + "!", "The exist path not contains End Step!",
+                "Path from " + initStep + " and " + endStep + " not exist!");
 
         return routing;
     }
@@ -124,6 +136,14 @@ public class RoutingProcessor {
 
     public void setInitStep(Integer initStep) {
         this.initStep = initStep;
+    }
+
+    public Integer getEndStep() {
+        return endStep;
+    }
+
+    public void setEndStep(Integer endStep) {
+        this.endStep = endStep;
     }
 
     public Boolean getReverseMode() {

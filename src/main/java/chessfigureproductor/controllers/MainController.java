@@ -38,6 +38,7 @@ public class MainController {
 
     @FXML ChoiceBox<Strategy> strategyChooser;
     @FXML Spinner<Integer> positionChooser;
+    @FXML Spinner<Integer> endChooser;
     @FXML CheckBox reverseCheck;
     @FXML TableView<RoutingStepData> routingTable;
     @FXML TableColumn<RoutingStepData, Integer> numberColumn;
@@ -45,9 +46,14 @@ public class MainController {
 
     @FXML Button startCalculating;
 
+    @FXML Label breadthPath;
+    @FXML Label depthPath;
+    @FXML Label randomPath;
+
     @FXML void initialize () {
         sizeChooser.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(3, 100, 8));
         positionChooser.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, (int) Math.pow(sizeChooser.getValue(), 2), 1));
+        endChooser.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, (int) Math.pow(sizeChooser.getValue(), 2), 1));
 
         pathField.setText("E:\\_ИНСТИТУТ\\3 КУРС\\Второй семестр\\Інженерія знань\\Практика\\Лаб 4\\data");
         exportCheck.setSelected(true);
@@ -88,8 +94,19 @@ public class MainController {
         stepTable.setItems(FXCollections.observableArrayList(rules));
 
         Integer initStep = (reverseCheck.isSelected()) ? positionChooser.getValue() : 1;
-        RoutingProcessor routingProcessor = new RoutingProcessor(strategyChooser.getValue(), rules, initStep, reverseCheck.isSelected());
-        routingProcessor.start();
+        Integer endStep = (reverseCheck.isSelected()) ? endChooser.getValue() : -1;
+
+        RoutingProcessor routingProcessor = new RoutingProcessor(rules, initStep, endStep, reverseCheck.isSelected());
+        if (reverseCheck.isSelected()) {
+            routingProcessor.start(new BreadthStrategy());
+            breadthPath.setText("" + routingProcessor.getRoutingData().size());
+            routingProcessor.start(new DepthStrategy());
+            depthPath.setText("" + routingProcessor.getRoutingData().size());
+            routingProcessor.start(new RandomStrategy());
+            randomPath.setText("" + routingProcessor.getRoutingData().size());
+        }
+        routingProcessor.start(strategyChooser.getValue());
+
         routingTable.setItems(FXCollections.observableArrayList(routingProcessor.getRoutingData()));
     }
 
@@ -99,6 +116,7 @@ public class MainController {
 
     @FXML void positionChooserShow () {
         positionChooser.setVisible(reverseCheck.isSelected());
+        endChooser.setVisible(reverseCheck.isSelected());
     }
 
 }
